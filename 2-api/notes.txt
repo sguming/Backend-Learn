@@ -1,0 +1,116 @@
+cdn content delivery network
+
+UDP (user datagram protocol)
+
+OSI model
+
+tcp连接 （3次握手，4次挥手）
+
+
+HTTPS
+（secure）
+
+Let's encrypt
+
+uniform resource locator
+uniform resource identifier
+URL是URI的子集
+
+
+ftp, smtp, mongodb
+
+domain
+
+https -> 443
+http -> 80
+
+
+cors -> cross origin resource sharing policy
+
+?name=mason&gender=male
+
+metadata
+
+
+CRUD
+增删改查
+create read update      delete
+POST    GET PUT/PATCH   DELETE
+
+
+X-custom-headers
+
+MIME type
+
+
+// js object
+{name: mason, gender: undefined}
+// JSON.stringify
+{"name":"mason"}
+
+
+serialization and deserialization
+序列化与反序列化
+
+website1: /users/123
+website2: /users/456
+
+
+Restful API 设计规范（我们遵循的）
+1. versioning (版本号)
+/api/v1
+/api/v2
+
+v1.api.example.com
+v1.example.com
+
+2. 用名词的复数形式描述资源
+/api/v1/users
+/api/v1/users/123
+
+3. 使用http 方法（method）来表示操作
+GET -> 读数据
+POST -> 添加数据
+PATCH/PUT -> 更新
+DELETE -> 删除
+
+POST /api/v1/users
+
+
+4. 可以使用嵌套路径来定位资源
+/api/v1/users/123/orders/234
+/api/v1/orders/234
+
+5. 使用状态码来表示结果
+200 -> 成功
+201 -> 创建成功
+
+6. 返回可读的错误信息
+status code 400
+{
+  "code":"ERROR01",
+  "error":"invalid email format"
+}
+
+7. 注意返回数据的大小 （分页）pagination
+/users?page=1&pageSize=10
+/users?page=2&pageSize=10
+
+{
+  "data":[],
+  "pagination":{
+    currentPage: 1,
+    total: xxxxx
+  }
+}
+
+/users?cursor=xxxxx&pageSize=10
+cursor pagination
+
+
+protobuf
+
+tRPC
+
+
+时序图 (sequence diagram)
