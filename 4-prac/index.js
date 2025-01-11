@@ -7,8 +7,14 @@ app.use(cors);
 const movies = [];
 
 let nextMovieId = 1;
+let nextReviewId = 1;
 
-app.get('/v1/movies', (req, res) => {
+// router
+
+const movieRouter = express.Router();
+app.use('/v1/movies', movieRouter);
+
+movieRouter.get('/', (req, res) => {
   const { keyword, limit = 10, page = 1, sort } = req.query;
   // 浅拷贝，深拷贝
   let moviesCopy = [...movies];
@@ -35,7 +41,7 @@ app.get('/v1/movies', (req, res) => {
   res.json(returnedMovies);
 });
 
-app.get('/v1/movies/:id', (req, res) => {
+movieRouter.get('/:id', (req, res) => {
   const { id } = req.params;
   const movie = movies.find((movie) => movie.id === +id);
   if (!movie) {
@@ -45,7 +51,7 @@ app.get('/v1/movies/:id', (req, res) => {
   res.json(movie);
 });
 
-app.post('/v1/movies', (req, res) => {
+movieRouter.post('/', (req, res) => {
   const { title, description, types } = req.body;
   if (!title || !description || !Array.isArray(types) || types.length === 0) {
     res.status(400).json({
@@ -65,7 +71,7 @@ app.post('/v1/movies', (req, res) => {
   res.status(201).json(newMovie);
 });
 
-app.put('/v1/movies/:id', (req, res) => {
+movieRouter.put('/:id', (req, res) => {
   const { id } = req.params;
   const movie = movies.find((movie) => movie.id === +id);
   if (!movie) {
@@ -91,7 +97,7 @@ app.put('/v1/movies/:id', (req, res) => {
   res.json(movie);
 });
 
-app.delete('/v1/movies/:id', (req, res) => {
+movieRouter.delete('/:id', (req, res) => {
   const movieIndex = movies.findIndex((movie) => movie.id === +req.params.id);
   if (movieIndex === -1) {
     res.status(404).json({ message: 'Movie not found' });
@@ -99,6 +105,45 @@ app.delete('/v1/movies/:id', (req, res) => {
   }
   movies.splice(movieIndex, 1);
   res.sendStatus(204);
+});
+
+movieRouter.get('/:id/reviews', (req, res) => {
+  const { id } = req.params;
+  const movie = movies.find((movie) => movie.id === +id);
+  if (!movie) {
+    res.status(404).json({ message: 'Movie not found' });
+    return;
+  }
+  res.json(movie.reviews);
+});
+
+movieRouter.post('/:id/reviews', (req, res) => {
+  const { id } = req.params;
+  const movie = movies.find((movie) => movie.id === +id);
+  if (!movie) {
+    res.status(404).json({ message: 'Movie not found' });
+    return;
+  }
+  const { content, rating } = req.body;
+  if (!content || !rating || rating < 1 || rating > 5) {
+    res.status(400).json({
+      message: 'content is required and rating must be between 1 and 5',
+    });
+    return;
+  }
+  const newReview = {
+    id: nextReviewId++,
+    content,
+    rating,
+  };
+
+  movie.reviews.push(newReview);
+  movie.averageRating = +(
+    movie.reviews.reduce((sum, review) => sum + review.rating, 0) /
+    movie.reviews.length
+  ).toFixed(2);
+
+  res.status(201).json(newReview);
 });
 
 app.listen(3000, () => {
