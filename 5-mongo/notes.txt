@@ -1,0 +1,145 @@
+SQL vs No-SQL
+
+MySQL, PostgreSQL, SQLite
+
+MongoDB - document-oriented
+Redis - Key-value
+Neo4j - Graph-oriented
+Cassandra - column-family
+
+BSON Binary JSON
+
+DB Server
+
+Database
+
+Collection 数据集合 - table 表
+  movies collection
+
+Document 文档
+
+key-value 数据集合
+
+Field 字段 （object-property）
+
+[
+	  {
+	    id: 1,
+	    title: "Inception",
+	    description: "A skilled thief steals secrets from dreams.",
+	    types: ["Sci-Fi"],
+	    averageRating: 4.5,
+	    reviews: [
+	      { id: 1, content: "Amazing movie!", rating: 5 },
+	      { id: 2, content: "Great visuals.", rating: 4 },
+	    ],
+	  },
+]
+
+nested document
+
+
+Server - Client
+
+CLI client - mongo shell
+GUI (graphic user interface) client - mongodb compass
+application server
+
+
+localhost:27017
+
+operator
+
+projection
+
+Structured Query Language
+
+index
+
+
+ERD (entity relational diagram)
+
+1:1
+student : address
+address : student
+
+1:M
+student: M address
+address: 1 student
+
+M:N
+student: M address
+address: N student
+
+students collection
+[
+  {
+    _id: 1,
+    name:"mason",
+    addresses: [
+      {
+        _id: 3,
+        postcode: 4000
+      },
+      {
+        _id: 4,
+        postcode: 2000
+      },
+    ]
+  },
+  {
+    _id: 2,
+    name:"james",
+    addresses: [
+      {
+        _id: 3,
+        postcode: 4000
+      },
+      {
+        _id: 4,
+        postcode: 2000
+      },
+    ]
+  },
+]
+
+addresses
+[
+  {
+    _id: 3,
+    city:"brisbane",
+    postcode: 4000
+    students: [xxx]
+  },
+  {
+    _id: 4,
+    city:"sydney",
+    postcode: 2000
+  },
+]
+
+index
+
+
+sensor -> logs [] millions up
+1/m -> log (temp. wind-speed, humidity, sensor_id)
+
+document size
+
+mongodb -> 1 document -> 16mb
+
+范式
+
+
+read > write (10x)
+
+atomicity 原子性
+
+ACID
+
+主从数据库
+primary secondary db
+
+one instance
+
+mongodb atlas
