@@ -143,3 +143,6 @@ primary secondary db
 one instance
 
 mongodb atlas
+
+
+Sequelize Prisma TypeORM
