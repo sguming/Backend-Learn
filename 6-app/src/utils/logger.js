@@ -17,8 +17,9 @@ const createLogger = (filename) => {
           // error -> stack trace
           const stack = error?.stack;
           // error.context?
+          const contextInfo = error ? `\n${JSON.stringify(error.context)}` : '';
           const stackTrace = stack ? `\n${stack}` : '';
-          return `[${timestamp}]${fileInfo}${requestInfo} [${level}]: ${message}${stackTrace}`;
+          return `[${timestamp}]${fileInfo}${requestInfo} [${level}]: ${message}${contextInfo}${stackTrace}`;
         }
       )
     ),

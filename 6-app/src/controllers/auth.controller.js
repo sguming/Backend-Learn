@@ -1,3 +1,4 @@
+const ConflictException = require('../exceptions/conflict.exception');
 const User = require('../models/user.model');
 const { generateToken } = require('../utils/jwt');
 const { createLogger } = require('../utils/logger');
@@ -20,7 +21,7 @@ const login = async (req, res, next) => {
       return;
     }
     const token = generateToken({ _id: user._id, username: user.username });
-    res.json({ token });
+    res.json({ success: true, data: { token } });
   } catch (e) {
     next(e);
   }
@@ -30,6 +31,10 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   try {
     const { username, password } = req.body;
+
+    if (await User.findOne({ username })) {
+      throw new ConflictException('Username already exists', { username });
+    }
 
     // mongoose document object
     const user = new User({ username, password });
@@ -42,7 +47,7 @@ const register = async (req, res, next) => {
     // }
 
     const token = generateToken({ _id: user._id, username: user.username });
-    res.json({ token });
+    res.json({ success: true, data: { token } });
   } catch (e) {
     next(e);
   }

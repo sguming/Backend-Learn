@@ -20,7 +20,7 @@ const validationErrorHandler = (err, req, res, next) => {
       path: req.path,
       method: req.method,
     });
-    return res.status(400).json({
+    return res.status(err.statusCode).json({
       success: false,
       error: err.message,
     });

@@ -15,10 +15,11 @@ module.exports = (req, res, next) => {
     return;
   }
 
-  const payload = validateToken(token);
-  if (!payload) {
-    res.status(401).json({ error: 'invalid token' });
-    return;
+  try {
+    const payload = validateToken(token);
+    req.user = payload;
+  } catch (e) {
+    next(e);
   }
   next();
 };

@@ -1,28 +1,34 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const schema = new Schema({
-  // email:{}
-  username: {
-    type: String,
-    required: true, // basic validation
-    unique: true, // unique index
-    minLength: 3,
-    maxLength: 20,
-    // validate: {
-    //   // regex
-    //   validator: (value) => {
-    //     return /^[a-zA-Z0-9]+$/.test(value);
-    //   },
-    //   message: (prop) => `${prop.value} is not a valid username`,
-    // },
+const schema = new Schema(
+  {
+    // _id: {},
+    // email:{}
+    username: {
+      type: String,
+      required: true, // basic validation
+      unique: true, // unique index
+      minLength: 3,
+      maxLength: 20,
+      // validate: {
+      //   // regex
+      //   validator: (value) => {
+      //     return /^[a-zA-Z0-9]+$/.test(value);
+      //   },
+      //   message: (prop) => `${prop.value} is not a valid username`,
+      // },
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 6,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    minLength: 6,
-  },
-});
+  {
+    timestamps: true, // createdAt, updatedAt
+  }
+);
 
 // document.hashPassword()
 // user.hashPassword()
