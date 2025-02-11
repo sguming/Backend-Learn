@@ -73,3 +73,52 @@ seprate fe and be + cross device (cross origin)
 
 access token -> 7 days
 refresh token -> 365 days -> save to db
+
+
+User
+  username
+  password
+Post
+  title
+  content
+  hashtags
+  comments
+  createdAt
+  updateAt
+  user
+  likesCount
+  status
+Comment
+  content
+  user
+  post
+  -> x replies: [commentId]
+  parentId: commentId (exists -> reply)
+  depth: number (DFS depth first search)
+  createdAt
+  updatedAt
+  status
+Hashtag (Category)
+  name
+  -> posts
+  (recentPosts recent 100)
+  createdAt
+  updatedAt
+Like
+  user
+  post
+  targetType (enum -> post, comment)
+  target
+  createdAt
+  updatedAt
+
+favorite/like (extend)
+
+
+User / Post (likes) M N
+
+super crazy user, make 1M likes
+super popular post, has 1M likes
+
+
+document 16MB
