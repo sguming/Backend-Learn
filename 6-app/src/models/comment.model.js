@@ -17,6 +17,10 @@ const schema = new mongoose.Schema(
       ref: 'Post',
       required: true,
     },
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

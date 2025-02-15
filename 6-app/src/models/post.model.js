@@ -21,6 +21,16 @@ const schema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    hashtags: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hashtag',
+      },
+    ],
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true, // createdAt, updatedAt

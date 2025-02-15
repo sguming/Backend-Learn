@@ -15,7 +15,9 @@ const postValidationSchema = {
     q: Joi.string().trim().min(2),
     ...paginationValidationSchema,
   }),
-  // TODO: add update validation
+  update: Joi.object({
+    ...basePostSchema,
+  }),
 };
 
 module.exports = postValidationSchema;

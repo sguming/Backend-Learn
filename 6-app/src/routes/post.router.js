@@ -10,6 +10,7 @@ const {
   getPostById,
   updatePostById,
   deletePostById,
+  getUserPostLikes,
 } = require('../controllers/post.controller');
 const postValidationSchema = require('../validations/post.validation');
 const authGuardMiddleware = require('../middleware/authGuard.middleware');
@@ -22,6 +23,7 @@ postRouter.put(
   '/:id',
   authGuardMiddleware,
   validateObjectId('id'),
+  validateBody(postValidationSchema.update),
   updatePostById
 );
 postRouter.delete(
@@ -35,6 +37,13 @@ postRouter.post(
   authGuardMiddleware,
   validateBody(postValidationSchema.create),
   createPost
+);
+
+postRouter.get(
+  '/:postId/likes',
+  authGuardMiddleware,
+  validateObjectId('postId'),
+  getUserPostLikes
 );
 
 module.exports = postRouter;

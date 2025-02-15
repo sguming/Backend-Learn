@@ -1,4 +1,5 @@
 const unauthorizedErrorHandler = require('./authorizedError.middleware');
+const badRequestErrorHandler = require('./badRequestError.middleware');
 const conflictErrorHandler = require('./conflictError.middleware');
 const finalErrorHandler = require('./finalError.middleware');
 const forbiddenErrorHandler = require('./forbiddenError.middleware');
@@ -7,6 +8,7 @@ const validationErrorHandler = require('./validationError.middleware');
 
 const errorMiddleware = [
   validationErrorHandler, //
+  badRequestErrorHandler,
   unauthorizedErrorHandler,
   conflictErrorHandler,
   notFoundErrorHandler,
